@@ -1,11 +1,15 @@
-const express = require('express')
-const path = require('path')
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+const express = require('express');
+const app = express();
+const path = require('path');
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const port = process.env.PORT || 3000;
 
-app.set('port', (process.env.PORT || 5000));
+server.listen(port, () => {
+  console.log('Server listening at port %d', port);
+});
 
+// Routing
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Chatroom
